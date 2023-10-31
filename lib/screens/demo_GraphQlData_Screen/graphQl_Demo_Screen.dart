@@ -95,22 +95,15 @@ class _GraphQlDemoScreenState extends State<GraphQlDemoScreen> {
                   padding: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.01, horizontal: CommonLogic.textSize * 0.01),
                   decoration: BoxDecoration(color: CustomColors.bgColor, border: Border.all(color: CustomColors.greyTextColor, width: 1)),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                            padding: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.01), child: Image.network(state.graphqlDemoModel.users[index].avatar, height: CommonLogic.textSize * 0.1)),
-                        IconButton(
-                            onPressed: () {
-                              context1.read<DemoGraphQlBloc>().add(deleteUserData(state.graphqlDemoModel.users[index].id));
-                            },
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                              size: CommonLogic.textSize * 0.04,
-                            ))
-                      ],
-                    ),
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+                      Container(
+                          padding: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.01), child: Image.network(state.graphqlDemoModel.users[index].avatar, height: CommonLogic.textSize * 0.1)),
+                      IconButton(
+                          onPressed: () {
+                            context1.read<DemoGraphQlBloc>().add(deleteUserData(state.graphqlDemoModel.users[index].id));
+                          },
+                          icon: Icon(Icons.delete, color: Colors.red, size: CommonLogic.textSize * 0.04))
+                    ]),
                     Text("Email : ${state.graphqlDemoModel.users[index].email}"),
                     Text("Name : ${state.graphqlDemoModel.users[index].name}"),
                     Text("Role : ${state.graphqlDemoModel.users[index].role}"),
