@@ -40,6 +40,9 @@ class _GraphQlMutationState extends State<GraphQlMutation> {
                 padding: EdgeInsets.all(CommonLogic.textSize * 0.01),
                 child: TextField(
                   controller: nameController,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'User Name',
@@ -51,6 +54,9 @@ class _GraphQlMutationState extends State<GraphQlMutation> {
                 padding: EdgeInsets.all(CommonLogic.textSize * 0.01),
                 child: TextField(
                   controller: emailController,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Email',
@@ -62,6 +68,9 @@ class _GraphQlMutationState extends State<GraphQlMutation> {
                 padding: EdgeInsets.all(CommonLogic.textSize * 0.01),
                 child: TextField(
                   controller: passwordController,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Password',
@@ -73,21 +82,27 @@ class _GraphQlMutationState extends State<GraphQlMutation> {
                 padding: EdgeInsets.all(CommonLogic.textSize * 0.01),
                 child: TextField(
                   controller: imageUrlController,
+                  onChanged: (value) {
+                    setState(() {});
+                  },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Image Url',
+                    labelText: 'Image URL',
                     hintText: 'Upload Your Image URL',
                   ),
                 ),
               ),
               InkWell(
-                  onTap: () {
-                    CommonWidgets.printFunction("name ${nameController.text} email ${emailController.text} password ${passwordController.text}");
-                    blocContext.read<GraphQlSendDataBloc>().add(sendData(
-                        emailController.text, nameController.text, passwordController.text, imageUrlController.text));
-                  },
+                  onTap: (emailController.text.isNotEmpty && nameController.text.isNotEmpty && passwordController.text.isNotEmpty && imageUrlController.text.isNotEmpty)
+                      ? () {
+                          CommonWidgets.printFunction("name ${nameController.text} email ${emailController.text} password ${passwordController.text}");
+                          blocContext.read<GraphQlSendDataBloc>().add(sendData(emailController.text, nameController.text, passwordController.text, imageUrlController.text));
+                        }
+                      : null,
                   child: Container(
-                      color: CustomColors.filedBtnColor,
+                      color: (emailController.text.isNotEmpty && nameController.text.isNotEmpty && passwordController.text.isNotEmpty && imageUrlController.text.isNotEmpty)
+                          ? CustomColors.filedBtnColor
+                          : CustomColors.filedBtnColor.withOpacity(0.2),
                       padding: EdgeInsets.all(CommonLogic.textSize * 0.016),
                       margin: EdgeInsets.symmetric(vertical: CommonLogic.textSize * 0.02),
                       child: Text("Submit", style: TextStyle(fontSize: CommonLogic.textSize * 0.02, color: CustomColors.whiteTextColor)))),

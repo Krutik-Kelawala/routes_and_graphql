@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_project/blocs/graphQL_demo/demo_graph_ql_bloc.dart';
 import 'package:test_project/routeFile.dart' as router;
+import 'package:test_project/screens/graphQl_mutation/graphQl_mutation.dart';
 import 'package:test_project/utilities/common_logic.dart';
 import 'package:test_project/utilities/custom_colors.dart';
 
@@ -48,15 +49,44 @@ class _GraphQlDemoScreenState extends State<GraphQlDemoScreen> {
   }
 
   Widget dataView(DemoGraphQlLoaded state, BuildContext context1) {
-    return SingleChildScrollView(
-      child: Column(children: [
-        ListView.builder(
+    return Column(children: [
+      Align(
+        alignment: Alignment.centerRight,
+        child: IntrinsicWidth(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: CommonLogic.textSize * 0.01, vertical: CommonLogic.textSize * 0.005),
+            margin: EdgeInsets.symmetric(horizontal: CommonLogic.textSize * 0.01, vertical: CommonLogic.textSize * 0.005),
+            decoration: BoxDecoration(color: CustomColors.filedBtnColor),
+            child: InkWell(
+              onTap: () {
+                context1.read<DemoGraphQlBloc>().add(getProductData(pageLimit));
+              },
+              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+                Padding(
+                  padding: EdgeInsets.only(right: CommonLogic.textSize * 0.01),
+                  child: Icon(
+                    Icons.refresh,
+                    color: CustomColors.whiteTextColor,
+                    size: CommonLogic.textSize * 0.03,
+                  ),
+                ),
+                Text(
+                  "Refresh",
+                  style: TextStyle(color: CustomColors.whiteTextColor, fontSize: CommonLogic.textSize * 0.016),
+                )
+              ]),
+            ),
+          ),
+        ),
+      ),
+      Expanded(
+        child: ListView.builder(
           shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
+          key: const PageStorageKey("key"),
+          // physics: const NeverScrollableScrollPhysics(),
           itemCount: state.graphqlDemoModel.users.length,
           itemBuilder: (context, index) {
             return Column(
-              key: const PageStorageKey("key"),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
@@ -101,8 +131,8 @@ class _GraphQlDemoScreenState extends State<GraphQlDemoScreen> {
               ],
             );
           },
-        )
-      ]),
-    );
+        ),
+      )
+    ]);
   }
 }
