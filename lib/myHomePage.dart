@@ -34,6 +34,14 @@ class _MyHome_PageState extends State<MyHome_Page> {
                           Navigator.pushNamed(context, router.graphQLScreen);
                         },
                         child: const Text("GraphQL Api Demo Screen"))),
+                const Text('Hero animation example with using rest api', textAlign: TextAlign.center),
+                Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, router.allImageScreen);
+                        },
+                        child: const Text("Hero Animation"))),
               ])),
         ));
   }
