@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:test_project/models/imageDataModel/image_data.dart';
 import 'package:test_project/widgets/common_widgets.dart';
 
 class Repository {
-  static final HttpLink httpLink = HttpLink('https://api.escuelajs.co/graphql');
+  static final HttpLink httpLink = HttpLink(dotenv.env['graphQlApi'].toString());
 
   static GraphQLClient client = GraphQLClient(
       link: httpLink,
@@ -17,7 +18,7 @@ class Repository {
       ));
 
   static Future<ImageDataModel?> getImageData() async {
-    final response = await http.get(Uri.parse("https://api.slingacademy.com/v1/sample-data/photos?offset=0&limit=132"));
+    final response = await http.get(Uri.parse(dotenv.env['dummyApi'].toString()));
 
     try {
       if (response.statusCode == 200) {

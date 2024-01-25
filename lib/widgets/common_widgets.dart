@@ -7,7 +7,7 @@ class CommonWidgets {
   // TODO common print function
   static printFunction(String text) {
     if (kDebugMode) {
-      print(text);
+      // print(text);
     }
   }
 
